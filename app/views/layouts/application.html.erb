@@ -11,9 +11,13 @@
 </head>
 
 <body>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+
+<% flash.each do |key, message| %>
+  <p class="notice"><%= message %></p>
+<% end %>
+
 
 <%= yield %>
 </body>
+<script src="https://kit.fontawesome.com/2ced43b25f.js" crossorigin="anonymous"></script>
 </html>
