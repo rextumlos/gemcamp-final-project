@@ -36,7 +36,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.integer :role, default: 0
       t.string :phone
       t.integer :coins, default: 0
-      t.decimal :total_deposit, precision: 8, scale: 2
+      t.decimal :total_deposit, precision: 8, scale: 2, default: 0
       t.integer :children_members
 
       t.timestamps null: false
