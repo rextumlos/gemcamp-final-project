@@ -40,12 +40,12 @@
 
     <div class="form-group mb-2">
       <%= f.label :username , class: "form-label"%>
-      <%= f.text_field :username, autofocus: true, autocomplete: "username" , class: "form-control"%>
+      <%= f.text_field :username, autofocus: true, autocomplete: "username", placeholder: "Username", class: "form-control"%>
     </div>
 
     <div class="form-group mb-2">
       <%= f.label :phone, class: "form-label" %>
-      <%= f.text_field :phone, autofocus: true, autocomplete: "phone", class: "form-control" %>
+      <%= f.text_field :phone, autofocus: true, autocomplete: "phone", placeholder: "Phone", class: "form-control" %>
     </div>
 
     <h4 class="mt-4">Confirm changes</h4>
@@ -53,7 +53,7 @@
 
     <div class="form-group mb-4">
       <%= f.label :current_password, class: "form-label" %>
-      <%= f.password_field :current_password, autocomplete: "current-password", required: true, class: "form-control" %>
+      <%= f.password_field :current_password, autocomplete: "current-password", required: true, placeholder: "Current password", class: "form-control" %>
       <em>(we need your current password to confirm your changes)</em><br />
     </div>
 

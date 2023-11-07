@@ -14,4 +14,6 @@ class User < ApplicationRecord
     countries: [:ph]
   }
 
+  mount_uploader :image, ImageUploader
+
 end
