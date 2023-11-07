@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :users, as: :admin, path: 'admin', controllers: {
     sessions: 'admin/users/sessions'
-  }
+  }, skip: [:registrations, :passwords]
 
   namespace :admin do
     root "home#index"
