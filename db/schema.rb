@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_06_061941) do
     t.integer "role", default: 0
     t.string "phone"
     t.integer "coins", default: 0
-    t.decimal "total_deposit", precision: 8, scale: 2
+    t.decimal "total_deposit", precision: 8, scale: 2, default: "0.0"
     t.integer "children_members"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
