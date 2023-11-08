@@ -4,4 +4,8 @@ class Address::Barangay < ApplicationRecord
 
   belongs_to :city
   has_many :posts
+
+  def self.table_name_prefix
+    "address_"
+  end
 end
