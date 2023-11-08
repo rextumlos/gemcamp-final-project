@@ -4,8 +4,7 @@ class Address::City < ApplicationRecord
 
   belongs_to :province
   has_many :barangays
-  has_many :posts
-
+  has_many :addresses
   def self.table_name_prefix
     "address_"
   end
