@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   constraints(ClientDomainConstraint.new) do
     root "client/home#index", as: :client_root
 
@@ -9,6 +8,10 @@ Rails.application.routes.draw do
     }
 
     get "/me", to: 'client/me#index'
+
+    namespace :client, as: "", path: "" do
+      resources :address
+    end
   end
 
   constraints(AdminDomainConstraint.new) do

@@ -32,7 +32,7 @@ class Admin::Users::SessionsController < Devise::SessionsController
 
     unless user && user.admin?
       # Non-admin user (client), prevent sign-in
-      flash[:alert] = "You are not authorized to log in as an admin."
+      flash[:alert] = I18n.t("devise.failure.invalid", authentication_keys: User.authentication_keys.first)
       redirect_to new_admin_user_session_path
     end
   end
