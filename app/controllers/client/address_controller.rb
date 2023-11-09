@@ -23,7 +23,7 @@ class Client::AddressController < ApplicationController
 
   def update
     if params[:commit] == 'Set as default'
-      if @default_address
+      if @default_address.present?
         @default_address.is_default = false
         @default_address.save
       end
@@ -53,6 +53,6 @@ class Client::AddressController < ApplicationController
   end
 
   def get_default_address
-    @default_address = current_client_user.addresses.default
+    @default_address = current_client_user.addresses.default[0]
   end
 end
