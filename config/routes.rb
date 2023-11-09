@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
     get "/me", to: 'client/me#index'
 
-    resources 'client/address', as: 'address', path: 'address', except: :show
+    resources 'client/address', as: 'address', path: 'address', except: [:show, :edit]
   end
 
   constraints(AdminDomainConstraint.new) do
