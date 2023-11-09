@@ -9,9 +9,7 @@ Rails.application.routes.draw do
 
     get "/me", to: 'client/me#index'
 
-    namespace :client, as: "", path: "" do
-      resources :address
-    end
+    resources 'client/address', as: 'address', path: 'address', except: :show
   end
 
   constraints(AdminDomainConstraint.new) do
