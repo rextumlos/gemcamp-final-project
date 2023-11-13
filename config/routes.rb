@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     devise_for :users, as: :admin, controllers: {
       sessions: 'admin/users/sessions'
     }, skip: [:registrations, :passwords]
+
+    resources 'admin/items', as: 'items', path: 'items'
   end
 
   namespace :api do
