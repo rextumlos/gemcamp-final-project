@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     }, skip: [:registrations, :passwords]
 
     resources 'admin/items', as: 'items', path: 'items'
+    resources 'admin/categories', as: 'categories', path: 'categories', except: [:show]
   end
 
   namespace :api do
