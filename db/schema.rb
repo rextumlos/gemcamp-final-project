@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_14_024956) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_14_083102) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -75,12 +75,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_024956) do
   end
 
   create_table "item_category_ships", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "item_id"
+    t.bigint "user_id"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_item_category_ships_on_category_id"
-    t.index ["item_id"], name: "index_item_category_ships_on_item_id"
+    t.index ["user_id"], name: "index_item_category_ships_on_user_id"
   end
 
   create_table "items", charset: "utf8mb4", force: :cascade do |t|
@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_024956) do
     t.integer "quantity"
     t.integer "minimum_tickets"
     t.string "state"
-    t.integer "batch_count"
+    t.integer "batch_count", default: 0
     t.datetime "online_at"
     t.datetime "offline_at"
     t.datetime "start_at"

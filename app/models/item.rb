@@ -2,7 +2,12 @@ class Item < ApplicationRecord
   validates :name, presence: true
   validates :quantity, presence: true
   validates :minimum_tickets, presence: true
-  validates :batch_count, presence: true
+  validates :start_at, presence: true
+  validates :offline_at, presence: true
+  validates :online_at, presence: true
+  validate :offline_at_in_future?
+  validate :online_at_before_offline_at?
+  validate :is_start_at_valid?
 
   mount_uploader :image, ImageUploader
   enum status: { inactive: 0, active: 1 }
@@ -17,52 +22,68 @@ class Item < ApplicationRecord
   end
 
   include AASM
-  aasm column :state do
+  aasm column: :state do
     state :pending, initial: true
     state :starting, :paused, :ended, :cancelled
 
     event :start do
-      transitions from :pending, to: :starting, guard: [:quantity_enough?, :present_day_less_than_offline_at?, :is_item_active?], after: [:deduct_quantity, :increase_batch_count]
+      transitions from: [:pending, :paused, :ended, :cancelled], to: :starting,
+                  guard: [:quantity_enough?, :present_day_less_than_offline_at?, :is_item_active?],
+                  after: :update_quantity_batch_count
     end
 
     event :pause do
-      transitions from :starting, to: :paused
+      transitions from: :starting, to: :paused
     end
 
     event :end do
-      transitions from :starting, to: :ended
+      transitions from: :starting, to: :ended
     end
 
     event :cancel do
-      transitions from :starting, to: :cancelled
+      transitions from: :starting, to: :cancelled, after: :revert_quantity
     end
+  end
 
-    # Not final
-    event :retry do
-      transitions from [:ended, :cancelled], to: :starting, guard: [:quantity_enough?, :present_day_less_than_offline_at?, :is_item_active?]
-    end
+  private
 
-    def deduct_quantity
-      item.update(quantity: item.quantity - 1)
+  def update_quantity_batch_count
+    unless aasm.from_state == :paused
+      update(quantity: quantity - 1, batch_count: batch_count + 1)
     end
+  end
 
-    # Ask if batch_count is default at 0
-    def increase_batch_count
-      item.update(batch_count: item.batch_count + 1)
-    end
+  def revert_quantity
+    update(quantity: quantity + 1, batch_count: batch_count - 1)
+  end
 
-    def quantity_enough?
-      item.quantity.positive?
-    end
+  def quantity_enough?
+    self.quantity > 0
+  end
 
-    # Ask how offline_at, online_at, start_at works
-    def present_day_less_than_offline_at?
-      Time.current < item.offline_at
-    end
+  def present_day_less_than_offline_at?
+    Time.current < self.offline_at
+  end
 
-    # Ask how status works
-    def is_item_active?
-      item.active?
-    end
+  def is_item_active?
+    self.active?
+  end
+
+  def offline_at_in_future?
+    return true unless offline_at.present? && offline_at < Time.current
+    errors.add(:offline_at, 'must be in the future')
+    false
+  end
+
+  def online_at_before_offline_at?
+    return true unless online_at.present? && online_at <= Time.current && offline_at < online_at
+    errors.add(:online_at, 'must be before offline at date')
+    false
+  end
+
+  def is_start_at_valid?
+    return true if start_at.present? && start_at >= online_at && start_at < offline_at
+    errors.add(:start_at, 'must be between online at and offline at')
+    false
   end
 end
