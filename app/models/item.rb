@@ -15,4 +15,54 @@ class Item < ApplicationRecord
   def destroy
     update(deleted_at: Time.current)
   end
+
+  include AASM
+  aasm column :state do
+    state :pending, initial: true
+    state :starting, :paused, :ended, :cancelled
+
+    event :start do
+      transitions from :pending, to: :starting, guard: [:quantity_enough?, :present_day_less_than_offline_at?, :is_item_active?], after: [:deduct_quantity, :increase_batch_count]
+    end
+
+    event :pause do
+      transitions from :starting, to: :paused
+    end
+
+    event :end do
+      transitions from :starting, to: :ended
+    end
+
+    event :cancel do
+      transitions from :starting, to: :cancelled
+    end
+
+    # Not final
+    event :retry do
+      transitions from [:ended, :cancelled], to: :starting, guard: [:quantity_enough?, :present_day_less_than_offline_at?, :is_item_active?]
+    end
+
+    def deduct_quantity
+      item.update(quantity: item.quantity - 1)
+    end
+
+    # Ask if batch_count is default at 0
+    def increase_batch_count
+      item.update(batch_count: item.batch_count + 1)
+    end
+
+    def quantity_enough?
+      item.quantity.positive?
+    end
+
+    # Ask how offline_at, online_at, start_at works
+    def present_day_less_than_offline_at?
+      Time.current < item.offline_at
+    end
+
+    # Ask how status works
+    def is_item_active?
+      item.active?
+    end
+  end
 end
