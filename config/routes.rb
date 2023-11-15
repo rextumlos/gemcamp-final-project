@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
     resources 'admin/items', as: 'items', path: 'items'
     resources 'admin/categories', as: 'categories', path: 'categories', except: [:show]
+    resources 'admin/tickets', as: 'tickets', path: 'tickets', only: [:index, :update]
   end
 
   namespace :api do

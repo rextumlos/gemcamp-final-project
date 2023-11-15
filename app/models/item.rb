@@ -19,7 +19,12 @@ class Item < ApplicationRecord
   has_many :tickets
 
   def destroy
-    update(deleted_at: Time.current)
+    if tickets.present?
+      errors.add(:base, "Cannot delete item with associated tickets")
+      false
+    else
+      update(deleted_at: Time.current)
+    end
   end
 
   include AASM
