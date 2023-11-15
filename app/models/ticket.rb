@@ -29,11 +29,7 @@ class Ticket < ApplicationRecord
   private
 
   def assign_serial_number
-    if (count = check_number_count)
-      number_count = (count + 1).to_s.rjust(4, '0')
-    else
-      number_count = '0001'
-    end
+    number_count = ((check_number_count || 0) + 1).to_s.rjust(4, '0')
   
     update(serial_number: "#{Time.current.to_i}-#{item_id}-#{batch_count}-#{number_count}")
   end
@@ -41,8 +37,8 @@ class Ticket < ApplicationRecord
   def check_number_count
     last_ticket = Ticket.where(item: item, batch_count: batch_count).last(2).first
 
-    if last_ticket && last_ticket.serial_number
-      return last_ticket.serial_number.last(4).to_i
+    if last_ticket&.serial_number
+      last_ticket.serial_number.last(4).to_i
     end
   end
 
