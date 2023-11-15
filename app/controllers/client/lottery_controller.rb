@@ -1,11 +1,22 @@
 class Client::LotteryController < ApplicationController
+  before_action :set_item, only: :show
   def index
     @categories = Category.all
 
-    if params[:commit] != 'All' || !params[:commit].present?
+    if params[:commit].present? && params[:commit] != 'All'
       @items = Category.find_by_name(params[:commit]).items.limit(4)
     else
       @items = Item.starting.includes(:categories).limit(4)
     end
+  end
+
+  def show
+    @progress = 56
+  end
+
+  private
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 end
