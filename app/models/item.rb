@@ -16,6 +16,7 @@ class Item < ApplicationRecord
 
   has_many :item_category_ships
   has_many :categories, through: :item_category_ships
+  has_many :tickets
 
   def destroy
     update(deleted_at: Time.current)
@@ -41,7 +42,7 @@ class Item < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: :starting, to: :cancelled, after: :revert_quantity
+      transitions from: :starting, to: :cancelled, after: [:revert_quantity, :cancel_all_tickets]
     end
   end
 
@@ -55,6 +56,12 @@ class Item < ApplicationRecord
 
   def revert_quantity
     update(quantity: quantity + 1, batch_count: batch_count - 1)
+  end
+
+  def cancel_all_tickets
+    tickets.each do |ticket|
+      ticket.cancel!
+    end
   end
 
   def quantity_enough?
@@ -86,4 +93,5 @@ class Item < ApplicationRecord
     errors.add(:start_at, 'must be between online at and offline at')
     false
   end
+
 end
