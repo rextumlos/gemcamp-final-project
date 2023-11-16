@@ -5,6 +5,7 @@ class Ticket < ApplicationRecord
   after_create :deduct_coin_to_user
   before_destroy :disable_destroy
 
+  has_many :winners
   belongs_to :item
   belongs_to :user
 
