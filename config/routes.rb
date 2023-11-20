@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources 'admin/categories', as: 'categories', path: 'categories', except: [:show]
     resources 'admin/tickets', as: 'tickets', path: 'tickets', only: [:index, :update]
     resources 'admin/winners', as: 'winners', path: 'winners', only: [:index, :update]
+    resources 'admin/offers', as: 'offers', path: 'offers'
   end
 
   namespace :api do
