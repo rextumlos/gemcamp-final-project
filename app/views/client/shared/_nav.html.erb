@@ -50,6 +50,16 @@
           </ul>
 
         </div>
+
+      <% else %>
+
+        <div class="offcanvas-header mt-2 border-bottom">
+          <div class="d-flex flex-column w-100">
+            <span class="fw-semibold fs-6 mb-2">You are not signed in. Please login.</span>
+            <%= link_to "Log in", new_client_user_session_path, class: "btn btn-primary w-100" %>
+          </div>
+        </div>
+
       <% end %>
 
     </div>
