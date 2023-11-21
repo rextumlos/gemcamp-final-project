@@ -3,9 +3,9 @@
 <%= render partial: 'client/me/shared/profile_nav' %>
 
 <div class="container">
-  <% if @orders.present? %>
-    <% @orders.each do |order| %>
-      <%= render partial: 'order_card', locals: { order: order } %>
+  <% if @lotteries.present? %>
+    <% @lotteries.each do |lottery| %>
+      <%= render partial: 'lottery_card', locals: { lottery: lottery } %>
     <% end %>
   <% else %>
     <%= render partial: 'client/shared/empty_list' %>

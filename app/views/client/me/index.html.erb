@@ -1,12 +1,6 @@
 <%= render partial: 'client/shared/nav' %>
 <%= render partial: 'client/me/shared/profile' %>
-
-<div class="container d-flex flex-row mb-2">
-  <%= link_to 'Order History', order_history_index_path, class: "btn btn-secondary me-2 #{"active" if controller_name == 'client/me' || 'client/me/orders'}", style: 'width: 200px' %>
-  <%= link_to 'Lottery History', '', class: "btn btn-secondary me-2 #{"active" if controller_name == 'client/me/lotteries'}", style: 'width: 200px' %>
-  <%= link_to 'Winning History', '', class: "btn btn-secondary me-2 #{"active" if controller_name == 'client/me/winnings'}", style: 'width: 200px' %>
-  <%= link_to 'Invitation History', '', class: "btn btn-secondary #{"active" if controller_name == 'client/me/invites'}", style: 'width: 200px' %>
-</div>
+<%= render partial: 'client/me/shared/profile_nav' %>
 
 <div class="container">
   <% if @orders.present? %>
