@@ -7,4 +7,8 @@ class Offer < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   has_many :orders
+
+  def to_s
+    name.humanize
+  end
 end
