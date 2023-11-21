@@ -1,0 +1,16 @@
+<%= render partial: 'client/shared/nav' %>
+<%= render partial: 'client/me/shared/profile' %>
+<%= render partial: 'client/me/shared/profile_nav' %>
+
+<div class="container">
+  <% if @winnings.present? %>
+    <% @winnings.each do |winning| %>
+      <%= render partial: 'winning_card', locals: { winning: winning } %>
+    <% end %>
+  <% else %>
+    <%= render partial: 'client/shared/empty_list' %>
+  <% end %>
+
+</div>
+
+<%= render partial: 'client/shared/footer' %>
