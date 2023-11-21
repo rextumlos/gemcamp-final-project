@@ -1,0 +1,16 @@
+<%= render partial: 'client/shared/nav' %>
+<%= render partial: 'client/me/shared/profile' %>
+<%= render partial: 'client/me/shared/profile_nav' %>
+
+<div class="container">
+  <% if @invites.present? %>
+    <% @invites.each do |invite| %>
+      <%= render partial: 'invite_card', locals: { invite: invite } %>
+    <% end %>
+  <% else %>
+    <%= render partial: 'client/shared/empty_list' %>
+  <% end %>
+
+</div>
+
+<%= render partial: 'client/shared/footer' %>
