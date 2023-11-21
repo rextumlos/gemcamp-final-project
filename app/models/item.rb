@@ -55,14 +55,14 @@ class Item < ApplicationRecord
   private
 
   def exceeded_max_bets?
-    return true if tickets.where(item: self, batch_count: batch_count).pending.count >= minimum_tickets
+    return true if tickets.where(batch_count: batch_count).pending.count >= minimum_tickets
     errors.add(:base, 'Have not reached minimum tickets.')
     false
   end
 
   def set_winner
-    winning_ticket = tickets.where(item: self, batch_count: batch_count).sample
-    all_tickets = tickets.where(item: self, batch_count: batch_count)
+    winning_ticket = tickets.where(batch_count: batch_count).sample
+    all_tickets = tickets.where(batch_count: batch_count)
     all_tickets.each do |ticket|
       if ticket == winning_ticket
         unless ticket.win!
@@ -95,7 +95,7 @@ class Item < ApplicationRecord
   end
 
   def cancel_all_tickets
-    all_tickets = tickets.where(item: self, batch_count: batch_count).pending
+    all_tickets = tickets.where(batch_count: batch_count + 1).pending
     all_tickets.each do |ticket|
       unless ticket.cancel!
         p ticket.errors.full_messages
