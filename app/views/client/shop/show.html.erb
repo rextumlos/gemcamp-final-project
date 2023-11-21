@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <%= form_with url: '', method: :post, class: 'mb-2' do |f| %>
+  <%= form_with url: purchase_orders_path, method: :post, class: 'mb-2' do |f| %>
     <%= f.hidden_field :offer, value: @offer.id %>
     <%= f.submit 'Purchase', class: 'w-100 btn btn-success' %>
   <% end %>
