@@ -7,6 +7,7 @@
     <% @invites.each do |invite| %>
       <%= render partial: 'invite_card', locals: { invite: invite } %>
     <% end %>
+    <%= paginate @invites, views_prefix: 'client/me' %>
   <% else %>
     <%= render partial: 'client/shared/empty_list' %>
   <% end %>

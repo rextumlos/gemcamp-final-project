@@ -7,6 +7,7 @@
     <% @winnings.each do |winning| %>
       <%= render partial: 'winning_card', locals: { winning: winning } %>
     <% end %>
+    <%= paginate @winnings, views_prefix: 'client/me' %>
   <% else %>
     <%= render partial: 'client/shared/empty_list' %>
   <% end %>
