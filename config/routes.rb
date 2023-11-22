@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     resources 'admin/orders', as: 'orders', path: 'orders', only: [:index, :update]
 
     resources 'admin/users/admins', as: 'admin_users', path: 'users/admins', only: :index
+    resources 'admin/users/clients', as: 'client_users', path: 'users/clients', only: :index
   end
 
   namespace :api do
