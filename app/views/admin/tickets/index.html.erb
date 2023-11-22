@@ -34,6 +34,10 @@
           <% @tickets.each_with_index do |ticket, index| %>
             <%= render partial: 'admin/shared/ticket_card', locals: { ticket: ticket, index: index } %>
           <% end %>
+
+          <div class="d-flex justify-content-end">
+            <%= paginate @tickets, views_prefix: 'admin' %>
+          </div>
         </div>
       <% else %>
         <%= render partial: 'admin/shared/empty_list' %>

@@ -16,5 +16,7 @@ class Admin::WinnersController < ApplicationController
     if params[:state].present?
       @winners = @winners.where(state: params[:state])
     end
+
+    @winners = @winners.order(created_at: :desc).page(params[:page]).per(10)
   end
 end

@@ -3,7 +3,7 @@ class Admin::ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @items = Item.all.includes(:tickets)
+    @items = Item.all.includes(:tickets).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show

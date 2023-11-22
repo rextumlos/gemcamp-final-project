@@ -18,6 +18,8 @@ class Admin::TicketsController < ApplicationController
     if params[:state].present?
       @tickets = @tickets.where(state: params[:state])
     end
+
+    @tickets = @tickets.order(:created_at).page(params[:page]).per(10)
   end
 
   def update

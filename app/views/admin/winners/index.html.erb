@@ -34,6 +34,10 @@
           <% @winners.each_with_index do |winner, index| %>
             <%= render partial: 'admin/shared/winner_card', locals: { winner: winner, index: index } %>
           <% end %>
+
+          <div class="d-flex justify-content-end">
+            <%= paginate @winners, views_prefix: 'admin' %>
+          </div>
         </div>
       <% else %>
         <%= render partial: 'admin/shared/empty_list' %>
