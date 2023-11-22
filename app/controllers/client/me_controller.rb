@@ -3,5 +3,7 @@ class Client::MeController < ApplicationController
 
   def index
     @orders = current_client_user.orders
+                                 .order(created_at: :desc)
+                                 .page(params[:page]).per(5)
   end
 end
