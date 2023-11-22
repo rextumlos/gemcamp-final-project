@@ -16,17 +16,17 @@
 
         <div class="form-group w-100 d-flex flex-row align-items-center me-2">
           <span class="px-2">From: </span>
-          <%= f.date_field :start_date, value: params[:start_date], class: 'form-control form-control-sm'%>
+          <%= f.date_field :start_date, value: params[:start_date], class: 'form-control form-control-sm' %>
           <span class="px-2">to</span>
           <%= f.date_field :end_date, value: params[:end_date], class: "form-control form-control-sm" %>
         </div>
 
         <div class="form-group me-2 w-100">
-          <%= f.collection_select :state, @states, :to_s, ->(state) { state.to_s.humanize }, {prompt: 'Filter state...', include_blank: false, selected: params[:state]  }, class: 'form-control form-control-sm w-100' %>
+          <%= f.collection_select :state, @states, :to_s, ->(state) { state.to_s.humanize }, { prompt: 'Filter state...', include_blank: false, selected: params[:state] }, class: 'form-control form-control-sm w-100' %>
         </div>
 
         <div class="form-group me-2 w-100">
-          <%= f.collection_select :genre, @genres, :to_s, ->(genre) { genre.humanize }, {prompt: 'Filter genre...', include_blank: false, selected: params[:genre]  }, class: 'form-control form-control-sm w-100' %>
+          <%= f.collection_select :genre, @genres, :to_s, ->(genre) { genre.humanize }, { prompt: 'Filter genre...', include_blank: false, selected: params[:genre] }, class: 'form-control form-control-sm w-100' %>
         </div>
 
         <div class="form-group me-2 w-100">
@@ -37,11 +37,25 @@
         <%= link_to 'Reset', orders_path, class: 'btn btn-sm btn-danger' %>
       <% end %>
 
+      <div class="w-100 d-flex flex-row mb-2">
+        <span class="border rounded py-1 px-2 me-2 ">Subtotal amount: <%= @subtotal_amount %></span>
+        <span class="border rounded py-1 px-2 me-2 ">Total amount: <%= @total_amount %></span>
+        <span class="border rounded py-1 px-2 me-2">Subtotal coins: <%= @subtotal_coins %></span>
+        <span class="border rounded py-1 px-2 me-2">Total coins: <%= @total_coins %></span>
+      </div>
+
+      <div class="w-100 border-bottom my-2"></div>
+
       <% if @orders.present? %>
         <div class="d-flex flex-column">
           <% @orders.each_with_index do |order, index| %>
             <%= render partial: 'order_card', locals: { order: order, index: index } %>
           <% end %>
+
+          <div class="d-flex justify-content-end">
+            <%= paginate @orders, views_prefix: 'admin' %>
+          </div>
+
         </div>
       <% else %>
         <%= render partial: 'admin/shared/empty_list' %>
