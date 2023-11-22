@@ -1,6 +1,10 @@
 class Winner < ApplicationRecord
   validates :item_batch_count, presence: true
   validates :admin, presence: true, if: :submitted?
+  validates :picture, presence: true, if: :delivered?
+  validates :comment, presence: true, if: :delivered?
+
+  mount_uploader :picture, ImageUploader
 
   belongs_to :item
   belongs_to :ticket

@@ -6,7 +6,7 @@
     <span class="fs-3 fw-semibold">Claim prize</span>
   </div>
 
-  <%= render partial: 'form', locals: { winning: @winning, url: winning_history_path, method: :patch }%>
+  <%= render partial: 'form_claim_prize', locals: { winning: @winning, url: winning_history_path, method: :patch }%>
 </div>
 
 <%= render partial: 'client/shared/footer' %>
