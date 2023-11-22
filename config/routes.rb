@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     resources 'admin/winners', as: 'winners', path: 'winners', only: [:index, :update]
     resources 'admin/offers', as: 'offers', path: 'offers'
     resources 'admin/orders', as: 'orders', path: 'orders', only: [:index, :update]
+
+    resources 'admin/users/admins', as: 'admin_users', path: 'users/admins', only: :index
   end
 
   namespace :api do

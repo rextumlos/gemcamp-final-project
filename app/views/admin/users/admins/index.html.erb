@@ -1,0 +1,23 @@
+<div class="vh-100 vw-100">
+  <%= render partial: 'admin/shared/top_nav' %>
+
+  <div class="d-flex flex-row h-100 w-100">
+    <%= render partial: 'admin/shared/side_nav' %>
+
+    <div class="p-4 w-100 mb-4 overflow-scroll">
+      <%= render partial: 'admin/users/shared/nav' %>
+      <div class="w-100 border-bottom my-2"></div>
+
+      <h1 class="fw-semibold fs-4 mb-2">Admin List</h1>
+
+      <% if @admins.present? %>
+        <% @admins.each_with_index do |admin, index| %>
+          <%= render partial: 'admin_user_card', locals: {admin: admin, index: index} %>
+        <% end %>
+      <% else %>
+        <%= render partial: 'admin/shared/empty_list' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

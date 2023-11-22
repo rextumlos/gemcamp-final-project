@@ -1,0 +1,4 @@
+<div class="d-flex flex-row">
+  <%= link_to 'Clients', '', class: 'btn btn-primary me-2' %>
+  <%= link_to 'Admins', admin_users_path, class: "btn btn-primary #{'active' if controller_name == 'admins'}" %>
+</div>
