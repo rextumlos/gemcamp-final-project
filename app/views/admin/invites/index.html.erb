@@ -1,0 +1,67 @@
+<div class="vh-100 vw-100">
+  <%= render partial: 'admin/shared/top_nav' %>
+
+  <div class="d-flex flex-row h-100 w-100">
+    <%= render partial: 'admin/shared/side_nav' %>
+
+    <div class="p-4 w-100 mb-4 overflow-scroll">
+      <h3>Invite List</h3>
+
+      <div class="w-100 border-bottom my-2"></div>
+
+      <%= form_with url: invites_path, method: :get, class: 'w-100 form d-flex flex-row align-items-center justify-content-between mb-2', data: { turbo: false } do |f| %>
+        <div class="form-group w-100 me-2">
+          <%= f.text_field :search, value: params[:search], placeholder: "Search...", class: "form-control form-control-sm w-100" %>
+        </div>
+
+        <%= f.submit 'Filter', class: 'btn btn-sm btn-primary me-2' %>
+        <%= link_to 'Reset', orders_path, class: 'btn btn-sm btn-danger' %>
+      <% end %>
+
+      <div class="w-100 border-bottom my-2"></div>
+
+      <% if @invites.present? %>
+        <div class="d-flex flex-column">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Parent Email</th>
+              <th scope="col">Email</th>
+              <th scope="col">Total Deposit</th>
+              <th scope="col">Members Total Deposit</th>
+              <th scope="col">Coins</th>
+              <th scope="col">Created at</th>
+              <th scope="col">Coins used count</th>
+              <th scope="col">Child members</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @invites.each do |invite| %>
+              <tr>
+                <th scope="row"><%= invite.parent.email %></th>
+                <td><%= invite.email %></td>
+                <td><%= invite.total_deposit %></td>
+                <td><%= invite.children.present? ? invite.children.pluck(:total_deposit).sum : 'None' %></td>
+                <td><%= invite.coins %></td>
+                <td><%= invite.created_at %></td>
+                <td>Not yet supported</td>
+                <td><%= invite.children.present? ? invite.children.count : 'None' %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+
+          <div class="d-flex justify-content-end">
+            <%= paginate @invites, views_prefix: 'admin' %>
+          </div>
+
+        </div>
+      <% else %>
+        <%= render partial: 'admin/shared/empty_list' %>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+

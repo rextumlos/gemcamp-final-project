@@ -55,6 +55,8 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources 'admin/invites', as: 'invites', path: 'invites', only: :index
   end
 
   namespace :api do
