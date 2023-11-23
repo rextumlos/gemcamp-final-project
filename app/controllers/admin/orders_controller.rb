@@ -1,4 +1,6 @@
 class Admin::OrdersController < ApplicationController
+  before_action :authenticate_admin_user!
+  before_action :set_order, only: :update
   def index
     @orders = Order.all.includes(:user, :offer)
     @states = Order.aasm.states.map(&:name)
@@ -29,12 +31,35 @@ class Admin::OrdersController < ApplicationController
 
     @orders = @orders.order(created_at: :desc).page(params[:page]).per(10)
 
-    @subtotal_amount = @orders.pluck(:amount).sum
-    @total_amount = Order.sum(:amount)
+    @subtotal_amount = @orders.deposit.pluck(:amount).sum
+    @total_amount = Order.deposit.sum(:amount)
     @subtotal_coins = @orders.pluck(:coin).sum
     @total_coins = Order.sum(:coin)
   end
 
   def update
+    if params[:commit] && params[:commit] == 'Cancel'
+      if @order.cancel!
+        flash[:notice] = 'Order cancelled.'
+        redirect_to orders_path
+      else
+        flash[:alert] = 'Order cancel failed.'
+        redirect_to orders_path
+      end
+    elsif params[:commit] && params[:commit] == 'Pay'
+      if @order.pay!
+        flash[:notice] = 'Order paid!'
+        redirect_to orders_path
+      else
+        flash[:alert] = 'Order pay failed.'
+        redirect_to orders_path
+      end
+    end
+  end
+
+  private
+
+  def set_order
+    @order = Order.find(params[:id])
   end
 end
