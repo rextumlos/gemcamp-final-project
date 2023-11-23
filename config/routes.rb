@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     end
 
     resources 'admin/invites', as: 'invites', path: 'invites', only: :index
+    resources 'admin/news_tickers', as: 'news_tickers', path: 'news_tickers', except: :show
   end
 
   namespace :api do

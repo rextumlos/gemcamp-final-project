@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_20_084005) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_23_163246) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -99,6 +99,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_084005) do
     t.datetime "deleted_at"
   end
 
+  create_table "news_tickers", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "admin_id"
+    t.text "content"
+    t.integer "status", default: 0
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_news_tickers_on_admin_id"
+  end
+
   create_table "offers", charset: "utf8mb4", force: :cascade do |t|
     t.string "image"
     t.string "name"
@@ -178,5 +188,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_20_084005) do
     t.index ["user_id"], name: "index_winners_on_user_id"
   end
 
+  add_foreign_key "news_tickers", "users", column: "admin_id"
   add_foreign_key "winners", "users", column: "admin_id"
 end
