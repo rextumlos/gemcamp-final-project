@@ -1,0 +1,29 @@
+<div class="vh-100 vw-100">
+  <%= render partial: 'admin/shared/top_nav' %>
+
+  <div class="d-flex flex-row h-100 w-100">
+    <%= render partial: 'admin/shared/side_nav' %>
+
+    <div class="p-4 w-100 mb-4 overflow-scroll">
+      <%= render partial: 'admin/users/shared/nav' %>
+      <div class="w-100 border-bottom my-2"></div>
+
+      <h1 class="fw-semibold fs-4 mb-2">Balance Operate</h1>
+      <%= render partial: 'nav' %>
+
+      <div class="w-100 d-flex flex-row mt-2">
+        <div class="w-50 card p-2 me-4">
+          <%= render partial: 'form', locals: { url: deduct_new_client_user_orders_path(@client), method: :post } %>
+        </div>
+
+        <div class="w-50 card p-2 d-flex flex-column justify-content-center">
+          <span>Username: <%= @client.username %></span>
+          <span>Promoter Name: <%= @client.parent.present? ? @client.parent.username : 'None' %></span>
+          <span>Coins: <%= @client.coins %></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

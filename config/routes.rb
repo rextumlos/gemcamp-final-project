@@ -43,7 +43,18 @@ Rails.application.routes.draw do
     resources 'admin/orders', as: 'orders', path: 'orders', only: [:index, :update]
 
     resources 'admin/users/admins', as: 'admin_users', path: 'users/admins', only: :index
-    resources 'admin/users/clients', as: 'client_users', path: 'users/clients', only: :index
+    resources 'admin/users/clients', as: 'client_users', path: 'users/clients', only: :index do
+      resources 'orders', path: 'orders', only: [] do
+        collection do
+          get 'increase/new', to: 'admin/users/clients/orders#new_increase'
+          get 'deduct/new', to: 'admin/users/clients/orders#new_deduct'
+          get 'bonus/new', to: 'admin/users/clients/orders#new_bonus'
+          post 'create_increase', to: 'admin/users/clients/orders#create_increase'
+          post 'create_deduct', to: 'admin/users/clients/orders#create_deduct'
+          post 'create_bonus', to: 'admin/users/clients/orders#create_bonus'
+        end
+      end
+    end
   end
 
   namespace :api do

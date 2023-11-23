@@ -1,0 +1,10 @@
+<div class="d-flex flex-row align-items-center">
+  <%= link_to 'Increase', increase_new_client_user_orders_path(@client),
+              class: "btn btn-sm btn-primary me-2 #{'active' if action_name == 'new_increase'}" %>
+
+  <%= link_to 'Deduct', deduct_new_client_user_orders_path(@client),
+              class: "btn btn-sm btn-primary me-2 #{'active' if action_name == 'new_deduct'}" %>
+
+  <%= link_to 'Bonus', bonus_new_client_user_orders_path(@client),
+              class: "btn btn-sm btn-primary me-2 #{'active' if action_name == 'new_bonus'}" %>
+</div>
