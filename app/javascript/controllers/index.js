@@ -13,6 +13,9 @@ application.register("hello", HelloController)
 import LocationController from "./location_controller"
 application.register("location", LocationController)
 
+import NewsTickerController from "./news_ticker_controller"
+application.register("news-ticker", NewsTickerController)
+
 import Select2Controller from "./select2_controller"
 application.register("select2", Select2Controller)
 

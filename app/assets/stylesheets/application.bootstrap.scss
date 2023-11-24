@@ -14,3 +14,31 @@
   -webkit-appearance: none;
   margin: 0;
 }
+
+
+/* app/assets/stylesheets/application.css */
+.ticker-container {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  height: 100%;
+}
+
+.ticker-content {
+  display: inline-block;
+  animation: ticker-slide 10s linear infinite; /* Adjust the duration as needed */
+  white-space: nowrap;
+  width: 100%; /* Set the width to 100% */
+}
+
+@keyframes ticker-slide {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
