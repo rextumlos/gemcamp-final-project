@@ -1,8 +1,8 @@
 class Winner < ApplicationRecord
   validates :item_batch_count, presence: true
-  validates :admin, presence: true, if: :submitted?
-  validates :picture, presence: true, if: :delivered?
-  validates :comment, presence: true, if: :delivered?
+  validates :admin, presence: true, if: :paid?
+  validates :picture, presence: true, if: :shared?
+  validates :comment, presence: true, if: :shared?
 
   mount_uploader :picture, ImageUploader
 
@@ -53,6 +53,6 @@ class Winner < ApplicationRecord
   private
 
   def has_address?
-    address.present?
+    user.addresses.present?
   end
 end

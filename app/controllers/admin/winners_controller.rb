@@ -24,6 +24,7 @@ class Admin::WinnersController < ApplicationController
 
   def update
     if params[:commit] && params[:commit] == 'Submit'
+      @winner.admin = current_admin_user
       if @winner.submit!
         flash[:notice] = 'Winning item submitted.'
         redirect_to winners_path

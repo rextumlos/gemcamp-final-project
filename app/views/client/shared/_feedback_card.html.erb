@@ -1,0 +1,14 @@
+<div class="col" style="min-width: 200px; max-width: 240px;">
+  <%= image_tag feedback.picture.url, class: 'w-100 h-100', style: 'object-fit: cover' if feedback && feedback.picture.present? %>
+
+  <% if body_text.present? %>
+    <div class="h-100 w-100 border">
+      <%= link_to shares_path do %>
+        <div class="card-body h-100">
+          <%= body_text %>
+        </div>
+      <% end %>
+
+    </div>
+  <% end %>
+</div>

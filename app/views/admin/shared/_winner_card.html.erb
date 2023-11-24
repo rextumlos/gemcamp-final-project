@@ -16,7 +16,7 @@
         <small>Item: <%= winner.item.name %></small>
         <small>Batch count: <%= winner.item_batch_count %></small>
         <small>Address: <%= full_address(winner.address) if winner.address %> </small>
-        <small>Paid by: <%= winner.paid? ? winner.admin.username : 'None' %></small>
+        <small>Paid by: <%= winner.won? || winner.claimed? || winner.submitted? ? 'None' : winner.admin.email %></small>
       </div>
     </div>
 

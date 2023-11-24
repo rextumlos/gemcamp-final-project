@@ -1,0 +1,17 @@
+<div class="col" style="min-width: 200px;">
+  <% if lottery %>
+    <%= link_to lottery_path(lottery) do %>
+      <%= image_tag lottery.image.url, class: 'w-100 h-100', style: 'object-fit: cover' if lottery.image.present? %>
+    <% end %>
+  <% end %>
+
+  <% if body_text.present? %>
+    <div class="h-100 w-100 border">
+      <%= link_to lottery_index_path do %>
+        <div class="card-body h-100">
+          <%= body_text %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
