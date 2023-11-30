@@ -49,9 +49,11 @@ Rails.application.routes.draw do
           get 'increase/new', to: 'admin/users/clients/orders#new_increase'
           get 'deduct/new', to: 'admin/users/clients/orders#new_deduct'
           get 'bonus/new', to: 'admin/users/clients/orders#new_bonus'
+          get 'member_level/new', to: 'admin/users/clients/orders#new_member_level'
           post 'create_increase', to: 'admin/users/clients/orders#create_increase'
           post 'create_deduct', to: 'admin/users/clients/orders#create_deduct'
           post 'create_bonus', to: 'admin/users/clients/orders#create_bonus'
+          post 'create_member_level', to: 'admin/users/clients/orders#create_member_level'
         end
       end
     end

@@ -1,7 +1,7 @@
 class Admin::Users::Clients::OrdersController < ApplicationController
   before_action :authenticate_admin_user!
   before_action :set_client
-  before_action :set_new_order_instance, only: [:new_increase, :new_bonus, :new_deduct]
+  before_action :set_new_order_instance, only: [:new_increase, :new_bonus, :new_deduct, :new_member_level]
 
   def new_increase
     @order.genre = 'increase'
@@ -13,6 +13,10 @@ class Admin::Users::Clients::OrdersController < ApplicationController
 
   def new_bonus
     @order.genre = 'bonus'
+  end
+
+  def new_member_level
+    @order.genre = 'member_level'
   end
 
   def create_increase
@@ -51,6 +55,19 @@ class Admin::Users::Clients::OrdersController < ApplicationController
     else
       flash.now[:alert] = 'Bonus balance failed.'
       render :new_bonus
+    end
+  end
+
+  def create_member_level
+    @order = @client.orders.build(order_params)
+    @order.genre = 'member_level'
+
+    if @order.save
+      flash[:notice] = 'Member level balance added.'
+      redirect_to client_users_path
+    else
+      flash.now[:alert] = 'Member level balance failed.'
+      render :new_member_level
     end
   end
 

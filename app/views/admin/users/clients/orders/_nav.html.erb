@@ -7,4 +7,7 @@
 
   <%= link_to 'Bonus', bonus_new_client_user_orders_path(@client),
               class: "btn btn-sm btn-primary me-2 #{'active' if action_name == 'new_bonus'}" %>
+
+  <%= link_to 'Member Level', member_level_new_client_user_orders_path(@client),
+              class: "btn btn-sm btn-primary me-2 #{'active' if action_name == 'new_member_level'}" %>
 </div>
