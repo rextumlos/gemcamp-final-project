@@ -37,7 +37,7 @@ class Client::TicketsController < ApplicationController
 
   def is_user_coins_enough?
     return if params[:tickets].present? && params[:tickets].to_i <= current_client_user.coins
-    flash[:alert] = 'Invalid ticket request.'
-    redirect_to lottery_path(@item) and return
+    flash[:alert] = 'Insufficient coins. Please top-up.'
+    redirect_to shop_index_path and return
   end
 end

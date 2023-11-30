@@ -14,12 +14,30 @@
   <%= form_with url: submit_tickets_path, method: :post, class: 'mb-2' do |f| %>
     <%= f.hidden_field :item, value: @item.id %>
     <div class="input-group mb-2" data-controller="ticket">
+      <button class="btn btn-outline-secondary" type="button" data-action="click->ticket#decrease20">
+        <i class="fa-solid fa-minus"></i> 20
+      </button>
+      <button class="btn btn-outline-secondary" type="button" data-action="click->ticket#decrease10">
+        <i class="fa-solid fa-minus"></i> 10
+      </button>
+      <button class="btn btn-outline-secondary" type="button" data-action="click->ticket#decrease5">
+        <i class="fa-solid fa-minus"></i> 5
+      </button>
       <button class="btn btn-outline-secondary" type="button" data-action="click->ticket#decrease">
-        <i class="fa-solid fa-minus"></i>
+        <i class="fa-solid fa-minus"></i> 1
       </button>
       <%= f.number_field :tickets, class: 'form-control text-center no-arrows', data: {ticket_target: "tickets"}, value: 1 %>
       <button class="btn btn-outline-secondary" type="button" data-action="click->ticket#increase">
-        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-plus"></i> 1
+      </button>
+      <button class="btn btn-outline-secondary" type="button" data-action="click->ticket#increase5">
+        <i class="fa-solid fa-plus"></i> 5
+      </button>
+      <button class="btn btn-outline-secondary" type="button" data-action="click->ticket#increase10">
+        <i class="fa-solid fa-plus"></i> 10
+      </button>
+      <button class="btn btn-outline-secondary" type="button" data-action="click->ticket#increase20">
+        <i class="fa-solid fa-plus"></i> 20
       </button>
     </div>
 

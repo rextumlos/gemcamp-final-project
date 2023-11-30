@@ -8,8 +8,32 @@ export default class extends Controller {
     this.updateValue(1);
   }
 
+  increase5() {
+    this.updateValue(5)
+  }
+
+  increase10() {
+    this.updateValue(10)
+  }
+
+  increase20() {
+    this.updateValue(20)
+  }
+
   decrease() {
     this.updateValue(-1);
+  }
+
+  decrease5() {
+    this.updateValue(-5)
+  }
+
+  decrease10() {
+    this.updateValue(-10)
+  }
+
+  decrease20() {
+    this.updateValue(-20)
   }
 
   updateValue(change) {
