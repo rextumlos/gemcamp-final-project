@@ -20,6 +20,8 @@ class Client::Users::RegistrationsController < Devise::RegistrationsController
         promoter = User.find_by(email: promoter_email)
         resource.parent = promoter if promoter
         resource.save
+
+        promoter.upgrade_member_level if promoter
       end
     end
   end

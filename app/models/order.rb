@@ -1,13 +1,12 @@
 class Order < ApplicationRecord
-  validates :amount, presence: true, if: :deposit?
   validates :coin, presence: true
-  validates :remarks, presence: true, unless: :deposit?
+  validates :remarks, presence: true, unless: :deposit? && :member_level?
   validates :amount, presence: true, if: :deposit?  # Ensure presence of amount for deposit orders
   validates :amount, numericality: { greater_than: 0 }, if: -> { deposit? && amount.present? } # Ensure amount is greater than 0 for deposit orders
   validates :offer, presence: true, if: :deposit?
   after_create :assign_serial_number
 
-  enum genre: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4 }
+  enum genre: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4, member_level: 5 }
 
   belongs_to :user
   belongs_to :offer, optional: true

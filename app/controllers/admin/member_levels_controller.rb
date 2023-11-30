@@ -43,7 +43,7 @@ class Admin::MemberLevelsController < ApplicationController
   private
 
   def member_level_params
-    params.require(:member_level).permit(:level, :required_members, :coins)
+    params.require(:member_level).permit(:level, :required_members, :coins, user_ids: [])
   end
 
   def set_member_level
