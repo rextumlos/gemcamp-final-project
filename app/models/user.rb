@@ -55,4 +55,12 @@ class User < ApplicationRecord
     end
   end
 
+  def fetch_next_member_level
+    if member_level.present?
+      MemberLevel.where("required_members > ?", children_members).first
+    else
+      MemberLevel.where("required_members > ?", 0).first
+    end
+  end
+
 end

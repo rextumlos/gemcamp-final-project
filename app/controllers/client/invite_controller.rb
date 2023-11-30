@@ -12,5 +12,7 @@ class Client::InviteController < ApplicationController
       use_path: true,
       viewbox: true
     )
+
+    @next_member_level = current_client_user.fetch_next_member_level
   end
 end
