@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     resources 'admin/invites', as: 'invites', path: 'invites', only: :index
     resources 'admin/news_tickers', as: 'news_tickers', path: 'news_tickers', except: :show
     resources 'admin/banners', as: 'banners', path: 'banners', except: :show
+    resources 'admin/member_levels', as: 'member_levels', path: 'member_levels', except: :show
   end
 
   namespace :api do
